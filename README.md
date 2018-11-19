@@ -4,6 +4,9 @@ An Elixir library for numerical computing, with a focus on higher-level procedur
 
 ## Roadmap
 
+- Derivatives
+  - Methods:
+    - [x] Finite difference (forward, backward, central)
 - ODE integration
   - Methods:
     - [x] RK4

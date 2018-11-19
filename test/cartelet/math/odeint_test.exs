@@ -22,14 +22,11 @@ defmodule OdeIntTest do
     assert_in_delta(z, 0.007696, tol)
 
     # Specify optional arguments
-    params = [sigma: 10, beta: 8 / 3, rho: 28]
     method = :rk4
+    params = [sigma: 10, beta: 8 / 3, rho: 28]
 
     {:ok, t, state} =
-      OdeInt.integrate(ode, state_init, dt, steps,
-        params: params,
-        method: method
-      )
+      OdeInt.integrate(ode, state_init, dt, steps, method, params)
 
     [x, y, z] = state.items
     assert_in_delta(t, 0.1, tol)

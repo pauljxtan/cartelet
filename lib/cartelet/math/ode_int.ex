@@ -27,8 +27,9 @@ defmodule Cartelet.Math.OdeInt do
 
   Returns the new state.
   """
-  @spec integrate(ode_func, state, float, integer, keyword, atom) :: state
-  def integrate(ode, state_init, dt, steps, params \\ [], method \\ :rk4) do
+  @spec integrate(ode_func, state, float, integer, atom, keyword) ::
+          {:ok, float, state}
+  def integrate(ode, state_init, dt, steps, method \\ :rk4, params \\ []) do
     {t, state} =
       1..steps
       |> Enum.reduce({0, state_init}, fn _, {t, state} ->
@@ -71,7 +72,8 @@ defmodule Cartelet.Math.OdeInt do
   @lorenz_params_default [sigma: 10, beta: 8 / 3, rho: 28]
   @spec lorenz(float, state, keyword) :: state
   def lorenz(_t, state, params) do
-    params = if %{}, do: @lorenz_params_default, else: params
+    # IO.inspect(params)
+    params = if params == [], do: @lorenz_params_default, else: params
 
     [x, y, z] = state.items
     x_new = params[:sigma] * (y - x)
