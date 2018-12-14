@@ -16,7 +16,7 @@ defmodule Cartelet.Math.Integral do
   composite trapezoidal rule with `n` segments.
   """
   @spec trapezoid_composite((float -> float), float, float, integer) :: float
-  def trapezoid_composite(f, a, b, n \\ 1000) do
+  def trapezoid_composite(f, a, b, n) do
     {h, xs} = increments(a, b, n)
     first = xs |> Enum.at(0) |> f.()
     mid = xs |> Enum.slice(1, n - 1) |> Enum.map(f) |> Enum.sum()
@@ -27,16 +27,18 @@ defmodule Cartelet.Math.Integral do
   @doc """
   Integrates a univariate `f` between `a` and `b` using Simpson's 1/3 rule.
   """
+  @spec simpson_13((float -> float), float, float) :: float
   def simpson_13(f, a, b) do
     {h, xs} = increments(a, b, 2)
     [x0, x1, x2] = xs
-    h / 3 * (f.(x0) + 4 * f.(x1) + f.(x2))
+    h * (1 / 3) * (f.(x0) + 4 * f.(x1) + f.(x2))
   end
 
   @doc """
   Integrates a univariate `f` between `a` and `b` using Simpson's composite
   1/3 rule with `n` segments.
   """
+  @spec simpson_13_composite((float -> float), float, float, integer) :: float
   def simpson_13_composite(_f, _a, _b, n) when not Integer.is_even(n),
     do: "n must be even"
 
@@ -59,12 +61,13 @@ defmodule Cartelet.Math.Integral do
       |> Enum.sum()
 
     last = xs |> Enum.at(n - 1) |> f.()
-    h / 3 * (first + 4 * odd + 2 * even + last)
+    h * (1 / 3) * (first + 4 * odd + 2 * even + last)
   end
 
   @doc """
   Integrates a univariate `f` between `a` and `b` using Simpson's 3/8 rule.
   """
+  @spec simpson_38((float -> float), float, float) :: float
   def simpson_38(f, a, b) do
     {h, xs} = increments(a, b, 3)
     [x0, x1, x2, x3] = xs
