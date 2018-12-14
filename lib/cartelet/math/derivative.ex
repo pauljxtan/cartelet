@@ -1,8 +1,6 @@
 defmodule Cartelet.Math.Derivative do
   @moduledoc """
-  Provides functions evaluating derivatives of univariate functions.
-
-  https://en.wikipedia.org/wiki/Finite_difference
+  Provides functions for evaluating derivatives of univariate functions.
   """
   # TODO: Include error estimates for each method?
   # TODO: Generalized nth-order derivatives

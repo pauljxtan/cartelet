@@ -1,22 +1,25 @@
 # Cartelet
 
-An Elixir library for numerical computing, with a focus on higher-level procedures like ODE/PDE integration and stochastic optimization.
+An Elixir library for numerical and scientific computing, with a focus on higher-level procedures like ODE/PDE integration and stochastic optimization.
 
 ## Roadmap
 
-- Derivatives
-  - Methods:
-    - [x] Finite difference (forward, backward, central)
-- ODE integration
-  - Methods:
-    - [x] RK4
-    - [ ] Adaptive RK4
-  - Systems:
-    - [x] Lorenz attractor
-    - [ ] ...
+* Integrals
+  * [x] Trapedoizal rules
+  * [ ] Simpson's rules
+  * ...
+* Derivatives
+  * Methods:
+    * [x] Finite difference (forward, backward, central)
+* ODE integration
+  * Methods:
+    * [x] RK4
+    * [ ] Adaptive RK4
+  * Systems:
+    * [x] Lorenz attractor
+    * [ ] ...
 
-## Why?
+## Why
 
-For fun and learning, but stuff should still be usable if you're interested in numerical computing with Elixir and performance isn't a big concern.
-
-I've also suspected for a while now that functional languages may be particularly well-suited for this sort of thing--time to find out!
+* Numerical computing and functional programming are fun
+* Having a code-based reference for numerical methods and concepts
