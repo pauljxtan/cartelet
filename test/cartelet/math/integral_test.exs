@@ -11,6 +11,12 @@ defmodule IntegralTest do
 
     # Trapezoidal rules
     assert_in_delta(trapezoid(f, a, b), expected, 1.0)
-    assert_in_delta(trapezoid_composite(f, a, b, 1000), expected, 0.1)
+    assert_in_delta(trapezoid_composite(f, a, b, 1000), expected, 1.0e-3)
+
+    # Simpson's rules
+    assert_in_delta(simpson_13(f, a, b), expected, 1.0e-3)
+    assert simpson_13_composite(f, a, b, 1001) == "n must be even"
+    assert_in_delta(simpson_13_composite(f, a, b, 1000), expected, 1.0e-3)
+    assert_in_delta(simpson_38(f, a, b), expected, 1.0e-3)
   end
 end

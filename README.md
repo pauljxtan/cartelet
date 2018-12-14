@@ -6,7 +6,7 @@ An Elixir library for numerical and scientific computing, with a focus on higher
 
 * Integrals
   * [x] Trapedoizal rules
-  * [ ] Simpson's rules
+  * [x] Simpson's rules
   * ...
 * Derivatives
   * Methods:
@@ -18,6 +18,8 @@ An Elixir library for numerical and scientific computing, with a focus on higher
   * Systems:
     * [x] Lorenz attractor
     * [ ] ...
+
+TODO: Accompanying LaTeX document with all relevant formulae
 
 ## Why
 
