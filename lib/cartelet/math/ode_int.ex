@@ -13,10 +13,20 @@ defmodule Cartelet.Math.OdeInt do
   Represents the state of a system of any dimension.
   """
   @type state :: %Tensor{}
+
   @typedoc """
   Evaluates a system of ODEs on a state at a given point in time.
   """
   @type ode_func :: (float, state, keyword -> state)
+
+  @typedoc """
+  Represents an integration method.
+  """
+  @type method :: :euler | :rk4
+
+  @integrator_lookup [
+    {:rk4, Cartelet.Math.Integrators.Rk4}
+  ]
 
   @doc """
   Integrates the given ODE system with the given initial conditions and step
@@ -27,46 +37,21 @@ defmodule Cartelet.Math.OdeInt do
 
   Returns the new state.
   """
-  @spec integrate(ode_func, state, float, integer, atom, keyword) ::
+  @spec integrate(ode_func, state, float, integer, method, keyword) ::
           {:ok, float, state}
   def integrate(ode, state_init, dt, steps, method \\ :rk4, params \\ []) do
     {t, state} = integrate_do(ode, 0.0, state_init, dt, steps, method, params)
     {:ok, t, state}
   end
 
-  @spec integrate_do(ode_func, float, state, float, integer, atom, keyword) ::
+  @spec integrate_do(ode_func, float, state, float, integer, method, keyword) ::
           {float, state}
   defp integrate_do(_, t, state, _, 0, _, _), do: {t, state}
 
   defp integrate_do(ode, t, state, dt, steps, method, params) do
-    {t, state} =
-      case method do
-        :rk4 -> rk4(ode, t, state, dt, params)
-        _ -> throw(:method_not_implemented)
-      end
-
+    {t, state} = @integrator_lookup[method].step(ode, t, state, dt, params)
     integrate_do(ode, t, state, dt, steps - 1, method, params)
   end
-
-  @doc """
-  Integrates an ODE system over a single step, at a given point in time, via
-  the 4th-order Runge-Kutta method (RK4).
-
-  Reference: [Wikipedia](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods)
-  """
-  @spec rk4(ode_func, float, state, float, keyword) :: {float, state}
-  def rk4(ode, t, state, dt, params) do
-    k1 = dt * ode.(t, state, params)
-    k2 = dt * ode.(t + dt / 2, state + k1 / 2, params)
-    k3 = dt * ode.(t + dt / 2, state + k2 / 2, params)
-    k4 = dt * ode.(t + dt, state + k3, params)
-
-    t_new = t + dt
-    state_new = state + (k1 + 2 * k2 + 2 * k3 + k4) / 6
-    {t_new, state_new}
-  end
-
-  # TODO: Add more methods
 
   @doc """
   Evaluates the Lorenz system (a.k.a. Lorenz attractor).
@@ -78,7 +63,6 @@ defmodule Cartelet.Math.OdeInt do
   @lorenz_params_default [sigma: 10, beta: 8 / 3, rho: 28]
   @spec lorenz(float, state, keyword) :: state
   def lorenz(_t, state, params) do
-    # IO.inspect(params)
     params = if params == [], do: @lorenz_params_default, else: params
 
     [x, y, z] = state.items

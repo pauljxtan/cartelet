@@ -23,5 +23,6 @@ TODO: Accompanying LaTeX document with all relevant formulae
 
 ## Why
 
+* To get better at Elixir
 * Numerical computing and functional programming are fun
-* Having a code-based reference for numerical methods and concepts
+* Having a code-based reference for numerical methods and concepts in an expressive syntax
