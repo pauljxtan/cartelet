@@ -30,16 +30,22 @@ defmodule Cartelet.Math.OdeInt do
   @spec integrate(ode_func, state, float, integer, atom, keyword) ::
           {:ok, float, state}
   def integrate(ode, state_init, dt, steps, method \\ :rk4, params \\ []) do
-    {t, state} =
-      1..steps
-      |> Enum.reduce({0, state_init}, fn _, {t, state} ->
-        case method do
-          :rk4 -> rk4(ode, t, state, dt, params)
-          _ -> :method_not_implemented
-        end
-      end)
-
+    {t, state} = integrate_do(ode, 0.0, state_init, dt, steps, method, params)
     {:ok, t, state}
+  end
+
+  @spec integrate_do(ode_func, float, state, float, integer, atom, keyword) ::
+          {float, state}
+  defp integrate_do(_, t, state, _, 0, _, _), do: {t, state}
+
+  defp integrate_do(ode, t, state, dt, steps, method, params) do
+    {t, state} =
+      case method do
+        :rk4 -> rk4(ode, t, state, dt, params)
+        _ -> throw(:method_not_implemented)
+      end
+
+    integrate_do(ode, t, state, dt, steps - 1, method, params)
   end
 
   @doc """

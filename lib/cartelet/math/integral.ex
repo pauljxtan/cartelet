@@ -25,7 +25,8 @@ defmodule Cartelet.Math.Integral do
   end
 
   @doc """
-  Integrates a univariate `f` between `a` and `b` using Simpson's 1/3 rule.
+  Integrates a univariate function `f` between `a` and `b` using Simpson's 1/3
+  rule.
   """
   @spec simpson_13((float -> float), float, float) :: float
   def simpson_13(f, a, b) do
@@ -35,8 +36,8 @@ defmodule Cartelet.Math.Integral do
   end
 
   @doc """
-  Integrates a univariate `f` between `a` and `b` using Simpson's composite
-  1/3 rule with `n` segments.
+  Integrates a univariate function `f` between `a` and `b` using Simpson's
+  composite 1/3 rule with `n` segments.
   """
   @spec simpson_13_composite((float -> float), float, float, integer) :: float
   def simpson_13_composite(_f, _a, _b, n) when not Integer.is_even(n),
@@ -65,7 +66,8 @@ defmodule Cartelet.Math.Integral do
   end
 
   @doc """
-  Integrates a univariate `f` between `a` and `b` using Simpson's 3/8 rule.
+  Integrates a univariate function `f` between `a` and `b` using Simpson's 3/8
+  rule.
   """
   @spec simpson_38((float -> float), float, float) :: float
   def simpson_38(f, a, b) do
