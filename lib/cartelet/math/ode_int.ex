@@ -25,6 +25,7 @@ defmodule Cartelet.Math.OdeInt do
   @type method :: :euler | :rk4
 
   @integrator_lookup [
+    {:euler, Cartelet.Math.Integrators.Euler},
     {:rk4, Cartelet.Math.Integrators.Rk4}
   ]
 
