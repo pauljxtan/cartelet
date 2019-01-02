@@ -3,68 +3,78 @@ defmodule OdeIntTest do
   use Numerix.Tensor
   alias Cartelet.Math.OdeInt
 
+  # Lorenz attractor test case
+  @state_init Tensor.new([0.01, 0.01, 0.01])
+  @ode &OdeInt.lorenz/3
+  @dt 0.01
+  @steps 10
+  @lorenz_params [sigma: 10, beta: 8 / 3, rho: 28]
+
+  # Manually computed results
+  @expected %{t: 0.1, x: 0.021840, y: 0.046459, z: 0.007696}
+
+  # Error tolerance for each method
+  @euler_tol @dt / 2
+  @heun_tol @dt / 50
+  @rk4_tol @dt / 10_000
+
   test "integrates Lorenz attractor with Euler's method" do
-    state_init = Tensor.new([0.01, 0.01, 0.01])
-    dt = 0.01
-    steps = 10
-    ode = &OdeInt.lorenz/3
-
-    {:ok, t, state} = OdeInt.integrate(ode, state_init, dt, steps)
-
-    # Euler is a fairly poor integrator, so we'll use a very wide tolerance
-    tol = dt / 2
+    {:ok, t, state} = OdeInt.integrate(@ode, @state_init, @dt, @steps)
 
     [x, y, z] = state.items
-    assert_in_delta(t, 0.1, tol)
-    assert_in_delta(x, 0.021840, tol)
-    assert_in_delta(y, 0.046459, tol)
-    assert_in_delta(z, 0.007696, tol)
+    assert_in_delta(t, @expected.t, @euler_tol)
+    assert_in_delta(x, @expected.x, @euler_tol)
+    assert_in_delta(y, @expected.y, @euler_tol)
+    assert_in_delta(z, @expected.z, @euler_tol)
 
     # With optional arguments
     {:ok, t, state} =
-      OdeInt.integrate(ode, state_init, dt, steps, :euler,
-        sigma: 10,
-        beta: 8 / 3,
-        rho: 28
-      )
+      OdeInt.integrate(@ode, @state_init, @dt, @steps, :euler, @lorenz_params)
 
     [x, y, z] = state.items
-    assert_in_delta(t, 0.1, tol)
-    assert_in_delta(x, 0.021840, tol)
-    assert_in_delta(y, 0.046459, tol)
-    assert_in_delta(z, 0.007696, tol)
+    assert_in_delta(t, @expected.t, @euler_tol)
+    assert_in_delta(x, @expected.x, @euler_tol)
+    assert_in_delta(y, @expected.y, @euler_tol)
+    assert_in_delta(z, @expected.z, @euler_tol)
+  end
+
+  test "integrates Lorenz attractor with Heun's method" do
+    {:ok, t, state} = OdeInt.integrate(@ode, @state_init, @dt, @steps)
+
+    [x, y, z] = state.items
+    assert_in_delta(t, @expected.t, @heun_tol)
+    assert_in_delta(x, @expected.x, @heun_tol)
+    assert_in_delta(y, @expected.y, @heun_tol)
+    assert_in_delta(z, @expected.z, @heun_tol)
+
+    # With optional arguments
+    {:ok, t, state} =
+      OdeInt.integrate(@ode, @state_init, @dt, @steps, :heun, @lorenz_params)
+
+    [x, y, z] = state.items
+    assert_in_delta(t, @expected.t, @heun_tol)
+    assert_in_delta(x, @expected.x, @heun_tol)
+    assert_in_delta(y, @expected.y, @heun_tol)
+    assert_in_delta(z, @expected.z, @heun_tol)
   end
 
   test "integrates Lorenz attractor with RK4" do
-    state_init = Tensor.new([0.01, 0.01, 0.01])
-    dt = 0.01
-    steps = 10
-    ode = &OdeInt.lorenz/3
-
-    {:ok, t, state} = OdeInt.integrate(ode, state_init, dt, steps)
-
-    # This is a pretty generous tolerance, but should be good enough for
-    # testing program correctness
-    tol = dt / 10
+    {:ok, t, state} = OdeInt.integrate(@ode, @state_init, @dt, @steps)
 
     [x, y, z] = state.items
-    assert_in_delta(t, 0.1, tol)
-    assert_in_delta(x, 0.021840, tol)
-    assert_in_delta(y, 0.046459, tol)
-    assert_in_delta(z, 0.007696, tol)
+    assert_in_delta(t, @expected.t, @rk4_tol)
+    assert_in_delta(x, @expected.x, @rk4_tol)
+    assert_in_delta(y, @expected.y, @rk4_tol)
+    assert_in_delta(z, @expected.z, @rk4_tol)
 
     # With optional arguments
     {:ok, t, state} =
-      OdeInt.integrate(ode, state_init, dt, steps, :rk4,
-        sigma: 10,
-        beta: 8 / 3,
-        rho: 28
-      )
+      OdeInt.integrate(@ode, @state_init, @dt, @steps, :rk4, @lorenz_params)
 
     [x, y, z] = state.items
-    assert_in_delta(t, 0.1, tol)
-    assert_in_delta(x, 0.021840, tol)
-    assert_in_delta(y, 0.046459, tol)
-    assert_in_delta(z, 0.007696, tol)
+    assert_in_delta(t, @expected.t, @rk4_tol)
+    assert_in_delta(x, @expected.x, @rk4_tol)
+    assert_in_delta(y, @expected.y, @rk4_tol)
+    assert_in_delta(z, @expected.z, @rk4_tol)
   end
 end

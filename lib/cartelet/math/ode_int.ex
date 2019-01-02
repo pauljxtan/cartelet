@@ -26,6 +26,7 @@ defmodule Cartelet.Math.OdeInt do
 
   @integrator_lookup [
     {:euler, Cartelet.Math.Integrators.Euler},
+    {:heun, Cartelet.Math.Integrators.Heun},
     {:rk4, Cartelet.Math.Integrators.Rk4}
   ]
 
