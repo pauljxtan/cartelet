@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.19.1">
     <title>Cartelet.Math.OdeInt – cartelet v0.1.0</title>
     <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
-    <script src="dist/sidebar_items-2bbdfb3110.js"></script>
+    <script src="dist/sidebar_items-1693804793.js"></script>
     
   </head>
   <body data-type="modules">
@@ -83,6 +83,13 @@ confusing terminology until I come up with something better…)</p>
     </h2>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#t:method/0">method()</a>
+  </div>
+    <div class="summary-synopsis"><p>Represents an integration method</p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#t:ode_func/0">ode_func()</a>
   </div>
     <div class="summary-synopsis"><p>Evaluates a system of ODEs on a state at a given point in time</p>
@@ -116,14 +123,6 @@ size, over a number of steps</p>
     <div class="summary-synopsis"><p>Evaluates the Lorenz system (a.k.a. Lorenz attractor)</p>
 </div>
 </div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#rk4/5">rk4(ode, t, state, dt, params)</a>
-  </div>
-    <div class="summary-synopsis"><p>Integrates an ODE system over a single step, at a given point in time, via
-the 4th-order Runge-Kutta method (RK4)</p>
-</div>
-</div>
   </div>
           
         </section>
@@ -137,6 +136,22 @@ the 4th-order Runge-Kutta method (RK4)</p>
             Types
           </h1>
           <div class="types-list">
+<div class="detail" id="t:method/0">
+    <div class="detail-header">
+    <a href="#t:method/0" class="detail-link" title="Link to this type">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <span class="signature">method()</span>
+        
+      <div class="specs">
+          <pre>method() :: :euler | :heun | :midpoint | :ralston | :rk4</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Represents an integration method.</p>
+  </section>
+</div>
 <div class="detail" id="t:ode_func/0">
     <div class="detail-header">
     <a href="#t:ode_func/0" class="detail-link" title="Link to this type">
@@ -194,7 +209,7 @@ the 4th-order Runge-Kutta method (RK4)</p>
     <span class="signature">integrate(ode, state_init, dt, steps, method \\ :rk4, params \\ [])</span>
         
       <div class="specs">
-          <pre>integrate(<a href="#t:ode_func/0">ode_func</a>(), <a href="#t:state/0">state</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">float</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) ::
+          <pre>integrate(<a href="#t:ode_func/0">ode_func</a>(), <a href="#t:state/0">state</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">float</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), <a href="#t:method/0">method</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) ::
   {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">float</a>(), <a href="#t:state/0">state</a>()}</pre>
       </div>
   </div>
@@ -222,24 +237,6 @@ pre-defined parameters and 4th-order Runge-Kutta.</p>
 <p>Evaluates the Lorenz system (a.k.a. Lorenz attractor).</p>
 <p>Returns the new state.</p>
 <p>Reference: <a href="https://en.wikipedia.org/wiki/Lorenz_system">Wikipedia</a></p>
-  </section>
-</div>
-<div class="detail" id="rk4/5">
-    <div class="detail-header">
-    <a href="#rk4/5" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">rk4(ode, t, state, dt, params)</span>
-        
-      <div class="specs">
-          <pre>rk4(<a href="#t:ode_func/0">ode_func</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">float</a>(), <a href="#t:state/0">state</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">float</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) :: {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">float</a>(), <a href="#t:state/0">state</a>()}</pre>
-      </div>
-  </div>
-  <section class="docstring">
-<p>Integrates an ODE system over a single step, at a given point in time, via
-the 4th-order Runge-Kutta method (RK4).</p>
-<p>Reference: <a href="https://en.wikipedia.org/wiki/Runge%25E2%2580%2593Kutta_methods">Wikipedia</a></p>
   </section>
 </div>
         </section>

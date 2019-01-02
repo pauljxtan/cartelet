@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.19.1">
-    <title>Cartelet.Math.Optimize – cartelet v0.1.0</title>
+    <title>Cartelet.Math.Integrators.Ralston – cartelet v0.1.0</title>
     <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
     <script src="dist/sidebar_items-1693804793.js"></script>
     
@@ -58,16 +58,68 @@ cartelet      </h1>
 
       <h1>
         <small class="visible-xs">cartelet v0.1.0</small>
-Cartelet.Math.Optimize              </h1>
+Cartelet.Math.Integrators.Ralston              </h1>
 
 
         <section id="moduledoc">
-<p>Provides functions for finding minima and maxima of functions.</p>
+<p>Implements the ODE integrator behaviour for Ralston’s method.</p>
+        </section>
+
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Summary
+          </h1>
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#step/5">step(ode, t, state, dt, params)</a>
+  </div>
+    <div class="summary-synopsis"><p>Integrates an ODE system over a single step, at a given point in time, via
+Ralston’s method</p>
+</div>
+</div>
+  </div>
+          
         </section>
 
 
 
-
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Functions
+          </h1>
+<div class="detail" id="step/5">
+    <div class="detail-header">
+    <a href="#step/5" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">step(ode, t, state, dt, params)</span>
+        
+      <div class="specs">
+          <pre>step(OdeInt.ode_func(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">float</a>(), OdeInt.state(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">float</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) ::
+  {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">float</a>(), OdeInt.state()}</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Integrates an ODE system over a single step, at a given point in time, via
+Ralston’s method.</p>
+<p>Reference: <a href="https://en.wikipedia.org/wiki/List_of_Runge%25E2%2580%2593Kutta_methods#Ralston%2527s_method">Wikipedia</a></p>
+  </section>
+</div>
+        </section>
 
           <footer class="footer">
         <p>

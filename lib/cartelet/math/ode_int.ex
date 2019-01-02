@@ -22,7 +22,7 @@ defmodule Cartelet.Math.OdeInt do
   @typedoc """
   Represents an integration method.
   """
-  @type method :: :euler | :rk4
+  @type method :: :euler | :heun | :midpoint | :ralston | :rk4
 
   @integrator_lookup [
     {:euler, Cartelet.Math.Integrators.Euler},
